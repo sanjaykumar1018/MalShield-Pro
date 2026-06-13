@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MALWARE - Cyber Attack Prevention</title>
+    <style>
+        /* Basic Reset and Styles */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body,
+        html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #0d1b2a, #07111f 90%);
+            color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            touch-action: none;
+            /* Prevent default scroll on touch devices */
+        }
+        
+        .container {
+            position: relative;
+            background: rgba(10, 17, 31, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 0 40px #0162c8cc;
+            width: 90%;
+            max-width: 700px;
+            padding: 50px 40px 50px 40px;
+            text-align: center;
+            overflow: visible;
+            color: #f0f4f8;
+            user-select: none;
+            touch-action: none;
+            cursor: grab;
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .container:active {
+            cursor: grabbing;
+            box-shadow: 0 0 50px #0afcffcc;
+        }
+        /* Logo and text styling omitted for brevity, same as before */
+        
+        .logo-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px auto;
+            z-index: 10;
+        }
+        
+        .logo-container img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #218cff, inset 0 0 8px #0d3a6c;
+            background: #0b2248;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .attacker {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: 70%;
+            left: 100%;
+            background: #bb2a2a;
+            border-radius: 18px;
+            box-shadow: 0 0 15px #ff5151;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: attackmove 6s linear infinite;
+            filter: drop-shadow(0 0 6px #ff3131);
+            pointer-events: none;
+        }
+        
+        .attacker svg {
+            width: 60px;
+            height: 60px;
+            fill: #ff2c2c;
+        }
+        
+        .app-name {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            color: #22a6b3;
+            margin-bottom: 6px;
+            text-shadow: 0 0 6px #0ff;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6666;
+            margin-bottom: 8px;
+            text-shadow: 0 0 5px #ff5555;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            color: #f9d423;
+            margin-bottom: 24px;
+            font-weight: 600;
+            text-shadow: 0 0 8px #f9d423aa;
+        }
+        
+        p {
+            font-size: 1rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        strong {
+            color: #f9d423;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #7a7a7a;
+        }
+        
+        .button {
+            background: #0ff;
+            color: #002f34;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 14px 40px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 25px;
+            box-shadow: 0 0 10px #0ffcc0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #0cc;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        @keyframes attackmove {
+            0% {
+                left: 100%;
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(0.8) rotate(15deg);
+            }
+            90% {
+                left: 70%;
+                opacity: 0.3;
+                transform: scale(0.5) rotate(45deg);
+            }
+            100% {
+                left: 65%;
+                opacity: 0;
+                transform: scale(0.3) rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main-container" role="main" aria-label="Cyber attack prevention warning">
+        <div class="logo-container" aria-label="App logo">
+            <img src="MALHERE.png" alt="MALHERE Shield Logo" />
+        </div>
+
+        <div class="app-name">MALWARE</div>
+        <h1>Security Alert: Cybercrime Threat Detected</h1>
+        <h2>Stay Vigilant &amp; Protect Your Data</h2>
+
+        <p>
+            <strong>Warning:</strong> This page has detected potential malicious activity linked to cybercrime. Cyber attackers use sophisticated techniques to steal sensitive information and compromise your security.
+        </p>
+        <p>
+            Always verify the authenticity of websites before entering personal details. Use strong, unique passwords and enable two-factor authentication wherever possible to reduce risk.
+        </p>
+        <p>
+            If you receive unexpected emails or messages requesting confidential information, treat them with suspicion and do not click on suspicious links.
+        </p>
+        <p>
+            Remember, <strong>cybersecurity starts with you</strong>. Stay informed, stay protected.
+        </p>
+        <p>
+            The malicious URL has been <strong>reported to the cyber council</strong> as well as <strong>law enforcement</strong> to review and mitigate it.
+        </p>
+
+        <a href="https://tgcsb.tspolice.gov.in/" class="button" target="_blank" rel="noopener noreferrer">Learn More &amp; Stay Safe</a>
+
+        <div class="footer">&copy; 2025 MALHERE Cyber Security. All rights reserved.</div>
+
+        <!-- Animated attacker -->
+        <div class="attacker" aria-hidden="true" title="Phishing attacker icon">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M32 5a10 10 0 0 0-5 18v5H17v4h10v5a10 10 0 1 0 10-18V5H32zM27 21a5 5 0 1 1 10 0v3H27v-3z"/>
+      </svg>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('main-container');
+        let isDragging = false;
+        let startY = 0;
+        let currentTranslateY = 0;
+
+        function clamp(num, min, max) {
+            return Math.min(Math.max(num, min), max);
+        }
+
+        function setTranslate(y) {
+            currentTranslateY = clamp(y, -100, 100);
+            container.style.transform = `translateY(${currentTranslateY}px)`;
+        }
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startY = e.clientY - currentTranslateY;
+            container.style.transition = 'none'; // Disable transition during drag
+        });
+
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startY = e.touches[0].clientY - currentTranslateY;
+                container.style.transition = 'none';
+            }
+        }, {
+            passive: true
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let newY = e.clientY - startY;
+            setTranslate(newY);
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            let newY = e.touches[0].clientY - startY;
+            setTranslate(newY);
+        }, {
+            passive: true
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                container.style.transition = 'transform 0.3s ease'; // Smooth transition back
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            if (isDragging) {
+                isDragging = false;
+                container.style.transition = 'transform 0.3s ease';
+            }
+        });
+    </script>
+</body>
+
+</html>

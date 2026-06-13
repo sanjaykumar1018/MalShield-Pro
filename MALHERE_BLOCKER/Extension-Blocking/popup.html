@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Phishing Detector</title>
+    <link href="style.css" rel="stylesheet" />
+    <script defer src="popup.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+            padding: 30px 40px;
+            max-width: 400px;
+            width: 100%;
+            color: #d0f0ff;
+            max-height: calc(100vh - 30px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .container::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        
+        #history-list li {
+            word-break: break-word;
+            overflow-wrap: anywhere;
+        }
+        
+        .logo {
+            width: 90px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h1,
+        h2,
+        p,
+        label,
+        button {
+            margin: 0 0 12px 0;
+        }
+        
+        button {
+            background-color: #00caff;
+            border: none;
+            border-radius: 22px;
+            color: #001f33;
+            font-weight: 700;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #008bbf;
+        }
+        
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            border-radius: 15px;
+            border: 1px solid #00caff;
+            background-color: #004466;
+            color: #cceeff;
+            font-size: 1rem;
+        }
+        
+        input[type=text]:focus,
+        input[type=password]:focus {
+            outline: none;
+            border-color: #00eaff;
+            background-color: #006488;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="MALHERE.png" alt="MALHERE Logo" class="logo" />
+        <h1>MALWARE-Detector</h1>
+
+        <p class="subtext">Protect yourself from phishing scams.</p>
+
+        <p>Current URL:</p>
+        <input type="text" id="url-input" readonly />
+
+        <p id="status-check" class="check"></p>
+        <!-- Fixed: changed from class="check" to class="check" -->
+
+        <form id="url-form">
+            <input type="text" id="url-input1" placeholder="Enter a URL to check..." />
+            <button type="submit" id="check-button">🔍 Check URL</button>
+        </form>
+
+        <div style="margin-top:10px;">
+            <button id="copy-url">Copy Current URL</button>
+        </div>
+
+
+
+        <p id="status-result" class="result"></p>
+
+        <div id="history" style="margin-top:12px; text-align:left;">
+            <strong>Recent Checks</strong>
+            <ul id="history-list" style="padding-left:18px; margin-top:6px;"></ul>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>

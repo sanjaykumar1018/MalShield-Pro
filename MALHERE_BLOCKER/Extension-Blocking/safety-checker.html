@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Safety Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        .url-input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .check-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .check-btn:hover {
+            background: #2980b9;
+        }
+        
+        .result {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .safe {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block;
+        }
+        
+        .danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .redirect-notice {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .countdown {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .features {
+            text-align: left;
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .features h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .features ul {
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .warning-page {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .warning-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-content" class="container">
+        <h1>Website Safety Checker</h1>
+        <input type="text" class="url-input" id="urlInput" placeholder="Enter website URL to check (e.g., http://example.com)">
+        <button class="check-btn" onclick="checkSafety()">Check Website Safety</button>
+
+        <div id="result" class="result"></div>
+        <div id="redirectNotice" class="redirect-notice"></div>
+
+        <div class="features">
+            <h3>How It Protects You:</h3>
+            <ul>
+                <li>Blocks access to known phishing websites</li>
+                <li>Warns about suspicious domains</li>
+                <li>Prevents access to malware-infected sites</li>
+                <li>Checks for fraudulent SSL certificates</li>
+                <li>Identifies scam and deceptive websites</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Known malicious domains and patterns
+        const maliciousDomains = [
+            "fake-login.com",
+            "phishing-site.net",
+            "malware-download.com",
+            "scam-website.org",
+            "unsafe-domain.xyz",
+            "credential-stealer.com",
+            "banking-scam.com",
+            "paypal-fake.com",
+            "amazon-fake-login.net"
+        ];
+
+        const suspiciousPatterns = [
+            /login\./,
+            /verify\./,
+            /account\./,
+            /security\./,
+            /update\./,
+            /confirm\./,
+            /banking\./,
+            /payment\./,
+            /wallet\./,
+            /credential/,
+            /password/,
+            /secure-/
+        ];
+
+        function checkSafety() {
+            const urlInput = document.getElementById('urlInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            const redirectNotice = document.getElementById('redirectNotice');
+
+            // Clear previous results
+            resultDiv.className = 'result';
+            redirectNotice.textContent = '';
+
+            if (!urlInput) {
+                resultDiv.textContent = 'Please enter a website URL';
+                resultDiv.className = 'result warning';
+                return;
+            }
+
+            let url;
+            try {
+                // Add http:// if missing
+                if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
+                    url = new URL('https://' + urlInput);
+                } else {
+                    url = new URL(urlInput);
+                }
+            } catch (e) {
+                resultDiv.textContent = 'Invalid URL format';
+                resultDiv.className = 'result warning';
+                return;
+            }
+
+            const hostname = url.hostname;
+
+            // Check if domain is in malicious list
+            if (maliciousDomains.some(domain => hostname.includes(domain))) {
+                resultDiv.textContent = 'DANGER: This website is known to be malicious!';
+                resultDiv.className = 'result danger';
+                startRedirectCountdown();
+                return;
+            }
+
+            // Check for suspicious patterns
+            const suspiciousMatches = suspiciousPatterns.filter(pattern => pattern.test(hostname));
+            if (suspiciousMatches.length > 0) {
+                resultDiv.textContent = 'WARNING: This website shows suspicious characteristics. Proceed with caution.';
+                resultDiv.className = 'result warning';
+                return;
+            }
+
+            // If all checks pass
+            resultDiv.textContent = 'This website appears to be safe.';
+            resultDiv.className = 'result safe';
+        }
+
+        function startRedirectCountdown() {
+            const redirectNotice = document.getElementById('redirectNotice');
+            let countdown = 5;
+
+            const countdownInterval = setInterval(() => {
+                redirectNotice.innerHTML = `Redirecting to safety warning in <span class="countdown">${countdown}</span> seconds...`;
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    redirectToWarningPage();
+                }
+
+                countdown--;
+            }, 1000);
+        }
+
+        function redirectToWarningPage() {
+            // Redirect to the safety-checker.html page
+            window.location.href = "safety-checker.html?blocked=true";
+        }
+
+        // Check if we were redirected from a blocked site
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const blocked = urlParams.get('blocked');
+
+            if (blocked === 'true') {
+                document.getElementById('main-content').classList.add('hidden');
+                document.getElementById('warning-page').classList.remove('hidden');
+            }
+        }
+
+        // Allow pressing Enter to check URL
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkSafety();
+            }
+        });
+
+        // Check URL parameters on page load
+        window.onload = checkUrlParams;
+    </script>
+
+    <div id="warning-page" class="container hidden">
+        <div class="warning-icon">🚨</div>
+        <h1 style="color: #e74c3c;">WEBSITE BLOCKED</h1>
+        <div style="background: #f8d7da; color: #721c24; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h2>DON'T GO TO THIS WEBSITE!</h2>
+            <p>It is very risky and has been blocked to protect your security.</p>
+            <p>The website you tried to visit is known for:</p>
+            <ul style="text-align: left; margin: 15px 0;">
+                <li>Phishing attacks</li>
+                <li>Malware distribution</li>
+                <li>Scam activities</li>
+                <li>Identity theft</li>
+            </ul>
+        </div>
+        <button class="check-btn" onclick="goBack()" style="background: #e74c3c;">Go Back to Safety</button>
+    </div>
+
+    <script>
+        function goBack() {
+            // Show main content and hide warning page
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('warning-page').classList.add('hidden');
+
+            // Clear previous results
+            document.getElementById('result').className = 'result';
+            document.getElementById('redirectNotice').textContent = '';
+
+            // Remove the blocked parameter from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
+</body>
+
+</html>

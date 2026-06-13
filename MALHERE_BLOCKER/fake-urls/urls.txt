@@ -1,0 +1,5 @@
+-> http://paypal-login-security-verify.com/auth
+-> http://security-bank-login.org/verify
+-> http://microsoft.security-check.com/update
+-> http://apple.id-security.verify.net/auth
+-> http://google.security-login.com/auth
